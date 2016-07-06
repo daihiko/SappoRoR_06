@@ -1,5 +1,12 @@
 /* for {revealjs} */
 
+/* image setting */
+.reveal  section img {
+  max-height: 500px;
+  border: none;
+  box-shadow: none;
+}
+
 .reveal {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-weight: normal;
@@ -32,8 +39,4 @@
   text-align: left;
 }
 
-
-/* image setting */
-.reveal img {
-  max-height: 500px;
-}
+	

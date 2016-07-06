@@ -1,10 +1,13 @@
 ---
 title: "DiagrammeRの紹介 (紹介だけ）"
+subtitle: Sapporo.R \#6
 author: 中西 大輔 (広島修道大学人文学部)
-date: 9th July, 2016 (SappoRo.R \#6)
+date: 9th July, 2016
 output:
   revealjs::revealjs_presentation:
     transition: slide
+    reveal_options:
+      slideNumber: true
 css: "daihiko.css"
 
 ---
@@ -17,6 +20,7 @@ css: "daihiko.css"
 - 社会心理学者
 - 好きなこと: SASでproc GLM;
 - @daihiko (Twitter, GitHub)
+- 「日本に帰りたい」
 - [http://ns1.shudo-u.ac.jp/~nakanisi/](http://ns1.shudo-u.ac.jp/~nakanisi/)
 
 
@@ -30,7 +34,7 @@ css: "daihiko.css"
 
 ## Wordのダサい図
 
-![Wordで作成した図](word.png)
+![Word](word.png)
 
 ##DiagrammeRの格好いい図
 
@@ -87,22 +91,69 @@ d -> {q r s t u v}
 
 #Demos (Pontier)
 
+##単純なダイアグラム (code_A)
+
+```{r simple01}
+
+library("DiagrammeR")
+grViz ("digraph boxes_and_circles {
+  graph [overlap = true]
+  node [shape = circle] a; b; c; a->c; b->c
+}")
+```
+
+##単純なダイアグラム (code_B)
+
+```{r simple02}
+
+library("DiagrammeR")
+nodes_simple <- create_nodes (nodes = c("a", "b", "c"))
+edges_simple <- create_edges (from = c("a","b"), to = c("c","c"))
+graph_simple <- create_graph (nodes_df = nodes_simple, edges_df = edges_simple)
+render_graph(graph_simple)
+
+```
+
+##単純なダイアグラム (code_C)
+
+```{r simple03}
+
+library("DiagrammeR")
+nodes_simple <- create_nodes (nodes = c("a", "b", "c"))
+edges_simple <- create_edges (from = c("a","b"), to = c("c","c"))
+graph_simple <- create_graph (nodes_df = nodes_simple, edges_df = edges_simple)
+render_graph(graph_simple, output = "vivagraph")
+
+```
+
+##単純なダイアグラム (code_D)
+
+```{r simple04}
+
+library("DiagrammeR")
+nodes_simple <- create_nodes (nodes = c("a", "b", "c"))
+edges_simple <- create_edges (from = c("a","b"), to = c("c","c"))
+graph_simple <- create_graph (nodes_df = nodes_simple, edges_df = edges_simple)
+render_graph(graph_simple, output = "visNetwork")
+
+```
+
 ##「人はなぜ二日酔いになるのか」
 
 ```{r ponchier01, echo=FALSE}
 
 library("DiagrammeR")
 grViz("
-      digraph boxes_and_circles {
-      graph [overlap = true, fontsize = 10]
-      node [shape = box, fontname = Helvetica]
-        出張
-        二日酔い
-      node [shape = circle, fontname = Helvetica]
-        暑い
-        ビール飲みたい
-        賢者モード
-        研究しないと
+  digraph boxes_and_circles {
+    graph [overlap = true, fontsize = 10]
+    node [shape = box, fontname = Helvetica]
+      出張
+      二日酔い
+    node [shape = circle, fontname = Helvetica]
+      暑い
+      ビール飲みたい
+      賢者モード
+      研究しないと
       
       暑い->ビール飲みたい
       出張->ビール飲みたい
@@ -110,8 +161,8 @@ grViz("
       二日酔い->賢者モード [label=出す]
       賢者モード->研究しないと
       研究しないと->出張
-      }
-      ")
+  }
+")
 ```
 
 ##「人はなぜ二日酔いになるのか」 (code)
@@ -120,16 +171,16 @@ grViz("
 
 library("DiagrammeR")
 grViz("
-      digraph boxes_and_circles {
-      graph [overlap = true, fontsize = 10]
-      node [shape = box, fontname = Helvetica]
-        出張
-        二日酔い
-      node [shape = circle, fontname = Helvetica]
-        暑い
-        ビール飲みたい
-        賢者モード
-        研究しないと
+  digraph boxes_and_circles {
+    graph [overlap = true, fontsize = 10]
+    node [shape = box, fontname = Helvetica]
+      出張
+      二日酔い
+    node [shape = circle, fontname = Helvetica]
+      暑い
+      ビール飲みたい
+      賢者モード
+      研究しないと
       
       暑い->ビール飲みたい
       出張->ビール飲みたい
@@ -137,26 +188,26 @@ grViz("
       二日酔い->賢者モード [label=出す]
       賢者モード->研究しないと
       研究しないと->出張
-      }
-      ")
+  }
+")
 ```
 
 ##「人はなぜ二日酔いになるのか」(改善版)
 
 ```{r ponchier02, echo=FALSE}
 
-library("DiagrammeR")
-grViz("
-      digraph boxes_and_circles {
-      graph [overlap = true, fontsize = 10, layout = neato]
-      node [shape = box, fontname = Helvetica]
-        出張 [pos='-4,3!']
-        二日酔い [pos='0,-2!']
-      node [shape = circle, fontname = Helvetica]
-        暑い [pos='4,1!']
-        ビール飲みたい [pos='0,0!']
-        賢者モード [pos='-4,-2!']
-        研究しないと [pos='-4,1!']
+library ("DiagrammeR")
+grViz ("
+  digraph boxes_and_circles {
+    graph [overlap = true, fontsize = 10, layout = neato]
+    node [shape = box, fontname = Helvetica]
+      出張 [pos='-4,3!']
+      二日酔い [pos='0,-2!']
+    node [shape = circle, fontname = Helvetica]
+      暑い [pos='4,1!']
+      ビール飲みたい [pos='0,0!']
+      賢者モード [pos='-4,-2!']
+      研究しないと [pos='-4,1!']
       
       暑い->ビール飲みたい
       出張->ビール飲みたい
@@ -164,26 +215,26 @@ grViz("
       二日酔い->賢者モード [label=出す]
       賢者モード->研究しないと
       研究しないと->出張
-      }
-      ")
+  }
+")
 ```
 
 ##「人はなぜ二日酔いになるのか」(改善版code)
 
 ```{r ponchier02_code, eval=FALSE}
 
-library("DiagrammeR")
-grViz("
-      digraph boxes_and_circles {
-      graph [overlap = true, fontsize = 10, layout = neato, overlap = true]
-      node [shape = box, fontname = Helvetica]
-        出張 [pos='-4,3!']
-        二日酔い [pos='0,-2!']
-      node [shape = circle, fontname = Helvetica]
-        暑い [pos='4,1!']
-        ビール飲みたい [pos='0,0!']
-        賢者モード [pos='-4,-2!']
-        研究しないと [pos='-4,1!']
+library ("DiagrammeR")
+grViz ("
+  digraph boxes_and_circles {
+    graph [overlap = true, fontsize = 10, layout = neato]
+    node [shape = box, fontname = Helvetica]
+      出張 [pos='-4,3!']
+      二日酔い [pos='0,-2!']
+    node [shape = circle, fontname = Helvetica]
+      暑い [pos='4,1!']
+      ビール飲みたい [pos='0,0!']
+      賢者モード [pos='-4,-2!']
+      研究しないと [pos='-4,1!']
       
       暑い->ビール飲みたい
       出張->ビール飲みたい
@@ -191,8 +242,8 @@ grViz("
       二日酔い->賢者モード [label=出す]
       賢者モード->研究しないと
       研究しないと->出張
-      }
-      ")
+  }
+")
 ```
 
 #Demos (Regression)
@@ -210,8 +261,8 @@ The birthwt data frame has 189 rows and 10 columns. The data were collected at B
 [http://d.hatena.ne.jp/dichika/20151208/p1](http://d.hatena.ne.jp/dichika/20151208/p1)
 
 ```{r logistic, echo=FALSE}
-library("broom")
-library("DiagrammeR")
+library ("broom")
+library ("DiagrammeR")
 res_glm <- glm(data=MASS::birthwt, low~age+smoke, family="binomial")
 (res_glm_tidy <- tidy(res_glm, exponentiate = TRUE, conf.int = TRUE))
 nodes <- create_nodes(nodes = res_glm_tidy$term)
@@ -224,8 +275,8 @@ render_graph(graph)
 ##ロジスティック回帰 (code)
 
 ```{r logistic_code, eval=FALSE}
-library("broom")
-library("DiagrammeR")
+library ("broom")
+library ("DiagrammeR")
 res_glm <- glm(data=MASS::birthwt, low~age+smoke, family="binomial")
 (res_glm_tidy <- tidy(res_glm, exponentiate = TRUE, conf.int = TRUE))
 nodes <- create_nodes(nodes = res_glm_tidy$term)
@@ -247,8 +298,8 @@ pairs(iris[1:4], main = "Iris Data setosa/versicolor/virginica", pch = 21, bg = 
 ##重回帰分析
 
 ```{r liner, echo=FALSE}
-library("broom")
-library("DiagrammeR")
+library ("broom")
+library ("DiagrammeR")
 
 lm_result<-lm(data=iris, Sepal.Length~Sepal.Width+Petal.Length+Petal.Width)
 (lm_result_tidy<-tidy(lm_result,exponentiate = FALSE, conf.int = TRUE))
@@ -262,8 +313,8 @@ render_graph(graph1)
 ##重回帰分析 (code)
 
 ```{r liner_code, eval=FALSE}
-library("broom")
-library("DiagrammeR")
+library ("broom")
+library ("DiagrammeR")
 
 lm_result<-lm(data=iris, Sepal.Length~Sepal.Width+Petal.Length+Petal.Width)
 (lm_result_tidy<-tidy(lm_result,exponentiate = FALSE, conf.int = TRUE))
