@@ -1,5 +1,5 @@
 ---
-title: "DiagrammeRの紹介 (紹介だけ）"
+title: "DiagrammeRの紹介 (紹介だけ)"
 subtitle: Sapporo.R \#6
 author: 中西 大輔 (広島修道大学人文学部)
 date: 9th July, 2016
@@ -42,27 +42,18 @@ css: "daihiko.css"
 library("DiagrammeR")
 grViz("
 digraph neato {
-
-graph [layout = neato]
-
-node [shape = circle,
-      style = filled,
-      color = grey,
-      label = '']
-
-node [fillcolor = red]
-a
-
-node [fillcolor = green]
-b c d
-
-node [fillcolor = orange]
-
-edge [color = grey]
-a -> {b c d}
-b -> {e f g h i j}
-c -> {k l m n o p}
-d -> {q r s t u v}
+  graph [layout = neato]
+  node [shape = circle, style = filled, color = grey, label = '']
+  node [fillcolor = red]
+    a
+  node [fillcolor = green]
+    b c d
+  node [fillcolor = orange]
+    edge [color = grey]
+      a -> {b c d}
+      b -> {e f g h i j}
+      c -> {k l m n o p}
+      d -> {q r s t u v}
 }")
 ```
 
@@ -75,9 +66,9 @@ d -> {q r s t u v}
 - いろいろ活躍!
 - Wordで線のはみ出た汚いダイアグラムでいいのかい?
 
-## 本家の説明
+## DiagrammeRの中身
 
-- Graphviz: GraphvizはDOTと呼ばれるグラフ描画言語からできており、その言語を処理する様々なツールを含んでいます。DOTは高度にカスタマイズ可能で、ラインの色、矢印の形、ノードの形など、あらゆるレイアウトを制御することができます。
+- Graphviz: *Graph Visualization Software*。AT&Tが開発。DOTと呼ばれるグラフ描画言語からできており、その言語を処理する様々なツールを含んでいます。DOTは高度にカスタマイズ可能で、ラインの色、矢印の形、ノードの形など、あらゆるレイアウトを制御することができます。
 - mermaid: mermaidを使うとグラフを描いたり、シーケンスダイアグラムを作成したりすることができます。
 - Node and Edge Data Frames: これらの機能はNDFs (node data frames) とEDFs (edge data frames) という特殊化したデータフレームを作成するのに使います。
 
@@ -86,8 +77,8 @@ d -> {q r s t u v}
 - install.packages ("DiagrammeR")
 - library ("DiagrammeR")
 - 入門用の日本語ドキュメントは現時点ではほとんどありません。
-  + 本家 [http://rich-iannone.github.io/DiagrammeR/index.html](http://rich-iannone.github.io/DiagrammeR/index.html)
-  + かずたん (日本語) [http://qiita.com/kazutan/items/ec47a2403df9eb817ce0](http://qiita.com/kazutan/items/ec47a2403df9eb817ce0)
+    - 本家 [http://rich-iannone.github.io/DiagrammeR/index.html](http://rich-iannone.github.io/DiagrammeR/index.html)
+    - かずたん (日本語) [http://qiita.com/kazutan/items/ec47a2403df9eb817ce0](http://qiita.com/kazutan/items/ec47a2403df9eb817ce0)
 
 #Demos (Pontier)
 
@@ -96,7 +87,7 @@ d -> {q r s t u v}
 ```{r simple01}
 
 library("DiagrammeR")
-grViz ("digraph boxes_and_circles {
+grViz (width = 400, height = 400, "digraph boxes_and_circles {
   graph [overlap = true]
   node [shape = circle] a; b; c; a->c; b->c
 }")
@@ -110,7 +101,7 @@ library("DiagrammeR")
 nodes_simple <- create_nodes (nodes = c("a", "b", "c"))
 edges_simple <- create_edges (from = c("a","b"), to = c("c","c"))
 graph_simple <- create_graph (nodes_df = nodes_simple, edges_df = edges_simple)
-render_graph(graph_simple)
+render_graph(graph_simple, width = 400, height = 400)
 
 ```
 
